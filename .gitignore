@@ -1,5 +1,5 @@
 # .gitignore 추가하기
 # .vscode는 현재 프로젝트의 설정 정보가 들어있는 코드
 
-setting.json
+.setting.json
 .DS_Store

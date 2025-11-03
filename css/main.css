@@ -1,0 +1,118 @@
+* {
+  box-sizing: BORDER-BOX;
+}
+
+body {
+  /*글자 관련 공통 스타일*/
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #333;
+}
+
+.font-en {
+  font-family: "Open Sans", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.inner {
+  max-width: 1200px;
+  /*가로 너비를 가진 블록 요소의 가운데 정렬*/
+  margin: 0 auto;
+}
+
+.animate-flash{
+  animation-name: flash;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+
+header {
+  background-color: #fff;
+  border: 1px solid #c8c8c8;
+  box-shadow: 0 2px 8px rgb(204, 204, 204, 0.8);
+
+  /*고정된 헤더 만들기*/
+  position: fixed; /*뷰포트 기준*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+header > .inner {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo img {
+  width: 40px;
+}
+
+header nav ul {
+  display: flex;
+}
+
+header nav ul li {
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+header nav ul li a {
+  /*기본값은 static 위치 기준이 없음/ absolute,fixed는 붕뜸 / relative 자기 자신 기준으로 위치를 잡음*/
+  position: relative;
+}
+
+header nav ul li a:hover {
+  color: #9b30ff;
+}
+header nav ul li a::after {
+  /* ::after 가상 요소의 장점은 html구조 추가와 class속성 값의 추가 없이 구현 및 제어 가능*/
+  content: ""; /*필수 속성*/
+  display: block; /*after는 inline이기때문에 강제로 블록을 줘서 가로세로 길이를 줌*/
+  width: 0%; /*초기 세팅*/
+  height: 2px;
+  background-color: #9b30ff;
+  transition: 0.5s;
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+}
+
+header nav ul li a:hover::after {
+  width: 100%;
+}
+
+.visual {
+  /*헤더가 fixed되어 일반 배치 흐름에서 벗어남
+  헤더 다음에 오는 요소는 헤더의 높이 만큼 여백 추가*/
+  margin-top: 60px;
+  background-color: #000;
+  color: #fff;
+}
+
+.visual > .inner {
+  height: calc(100vh - 60px); /* 뷰포트의 높이의 100%*/
+  display: flex;
+  align-items: center;
+}
+
+.visual > .inner .purple{
+  color: #9b30ff;
+}
+
+/*애니메이션 정의는 맨 마지막에*/
+@keyframes flash{
+  0%, 50%, 100%{
+    opacity: 1;
+  }
+  25%, 75%{
+    opacity: 0;
+  }
+}
