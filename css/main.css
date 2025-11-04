@@ -1,118 +1,268 @@
+/* COMMON */
 * {
-  box-sizing: BORDER-BOX;
+  box-sizing: border-box;
 }
 
+html{
+  /*스크롤 이동을 부드럽게 해주는 */
+  scroll-behavior: smooth;
+}
 body {
-  /*글자 관련 공통 스타일*/
-  font-family: "Noto Sans KR", sans-serif;
+  /* 글자 관련 기본(공통) 스타일 추가 */
+  font-family: "Open Sans", "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
   color: #333;
+
+  /* 고정된 헤더 테스트용 */
+  /* height: 3000px; */
 }
 
-.font-en {
+/* 영문에만 적용할 폰트 */
+/* .font-en {
   font-family: "Open Sans", sans-serif;
-}
+} */
 
 a {
+  /* 밑줄 제거 */
   text-decoration: none;
   color: inherit;
 }
+
 .inner {
   max-width: 1200px;
-  /*가로 너비를 가진 블록 요소의 가운데 정렬*/
+  /* 가로 너비를 가진 블록 요소의 가운데 정렬 */
   margin: 0 auto;
 }
 
-.animate-flash{
-  animation-name: flash;
-  animation-duration: 0.5s;
-  animation-iteration-count: infinite;
+.title{
+  font-size: 50px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 50px;
 }
 
+.title::after{
+  content: "";
+  display: block;
+  width: 80px;
+  height: 2px;
+  background-color: #333;
+  margin: 24px auto 0;
+}
+
+img{
+  /*이미지가 인라인 요소라서 발생 하는 문자 기준선 아래의 공간을 제거하기 위해*/
+  display: block;
+}
+
+.animate-flash {
+  animation-name: flash;
+  animation-duration: 0.5s;
+  /* animation-timing-function: cubic-bezier(.43,.19,.02,1); */
+  animation-iteration-count: 2;
+}
+
+/* HEADER */
 header {
   background-color: #fff;
-  border: 1px solid #c8c8c8;
-  box-shadow: 0 2px 8px rgb(204, 204, 204, 0.8);
+  border-bottom: 1px solid #c8c8c8;
+  box-shadow: 0 2px 8px rgba(204, 204, 204, 0.8);
 
-  /*고정된 헤더 만들기*/
-  position: fixed; /*뷰포트 기준*/
+  /* 고정된 헤더 만들기 */
+  position: fixed; /* 뷰포트 기준 */
   top: 0;
   left: 0;
   width: 100%;
   z-index: 10;
 }
-
 header > .inner {
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 header .logo img {
   width: 40px;
 }
-
 header nav ul {
   display: flex;
 }
-
 header nav ul li {
   padding: 10px 20px;
-  font-weight: bold;
+  font-weight: 700;
 }
-
 header nav ul li a {
-  /*기본값은 static 위치 기준이 없음/ absolute,fixed는 붕뜸 / relative 자기 자신 기준으로 위치를 잡음*/
   position: relative;
 }
-
 header nav ul li a:hover {
   color: #9b30ff;
 }
 header nav ul li a::after {
-  /* ::after 가상 요소의 장점은 html구조 추가와 class속성 값의 추가 없이 구현 및 제어 가능*/
-  content: ""; /*필수 속성*/
-  display: block; /*after는 inline이기때문에 강제로 블록을 줘서 가로세로 길이를 줌*/
-  width: 0%; /*초기 세팅*/
+  /* ::after 가상 요소의 장점은 HTML 구조 추가와 class 속성 값의 추가 없이 구현 및 제어 가능 */
+  content: ""; /* 필수 속성 */
+  display: block;
+  width: 0; /* 초기에는 밑줄이 안보이도록 0으로 설정 */
   height: 2px;
   background-color: #9b30ff;
-  transition: 0.5s;
+  transition: 0.5s; /* 밑줄이 생기고 사라지는 효과를 설정 */
   position: absolute;
   left: 0;
   bottom: -4px;
 }
-
 header nav ul li a:hover::after {
-  width: 100%;
+  width: 100%; /* 호버 시 밑줄이 완전히 나타나도록 100%로 설정 */
 }
 
+/* VISUAL */
 .visual {
-  /*헤더가 fixed되어 일반 배치 흐름에서 벗어남
-  헤더 다음에 오는 요소는 헤더의 높이 만큼 여백 추가*/
+  /* 헤더가 fixed 되어 일반 배치 흐름에서 벗어남(주변 요소들과 상호작용하지 않음) 
+    헤더 다음에 오는 요소는 헤더의 높이만큼 외부 여백 추가 */
   margin-top: 60px;
+  width: 100%;
   background-color: #000;
   color: #fff;
 }
-
 .visual > .inner {
-  height: calc(100vh - 60px); /* 뷰포트의 높이의 100%*/
+  height: calc(100vh - 60px); /* 첫 번째 섹션이 뷰포트에 가득 차도록 */
+  font-size: 70px;
   display: flex;
   align-items: center;
 }
-
-.visual > .inner .purple{
+.visual > .inner .purple {
   color: #9b30ff;
 }
 
-/*애니메이션 정의는 맨 마지막에*/
-@keyframes flash{
-  0%, 50%, 100%{
+/* ABOUT */
+.about {
+  padding: 150px 0;
+}
+.about > .inner{
+  /*부모 위치 기준 잡아주기*/
+  position: relative;
+}
+.about .about__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.about .about__wrapper .about__img {
+  width: 40%;
+}
+.about .about__wrapper .about__img img {
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.1);
+}
+.about .about__wrapper .about__text {
+  width: 40%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.about .about__wrapper .about__text .slogan {
+  font-size: 35px;
+  font-weight: bold;
+}
+.about .about__wrapper .about__text h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.about .about__wrapper .about__text h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.about .about__wrapper .about__text li {
+  line-height: 1.8;
+}
+.about .about__btn {
+  position: absolute;
+  bottom: -30px;
+  right: 30px;
+}
+
+/* .about .about__btn a{
+  display: flex;
+  align-items: center;
+} */
+
+.about .about__btn img{
+  display: inline;
+  vertical-align: middle; /*인라인 요소글끼리 가운데로 */
+  width: 28px;
+  margin-right: 10px;
+}
+
+/*SKILL*/
+.skill{
+  padding: 150px 0;
+  background-color: #000;
+  color: #fff;
+}
+.skill .title::after{
+  background-color: #fff;
+}
+.skill .skill__list{
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap; /*flex에서 아이템들 줄바꿈*/
+  gap: 30px;
+  text-align: center;
+}
+.skill .skill__list h3{
+  width: 50px;
+  height: 40px;
+  background-color: #9b30ff;
+  border-radius: 50%;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: -2px; /*자간 간격*/
+  transform: rotate(-20deg);
+}
+.skill .skill__list > li{
+  display: flex;
+  flex-direction: column;
+  align-items: center; /*교차축의 정렬/ justify는 축의 정렬*/
+
+  /*애니메이션 효과*/
+  /*method1 position*/
+  /*relative : 자신을 기준으로 움직임*/
+  /* position: relative;
+  top: 100px;
+  */
+  opacity: 0;
+  /*method2 transform*/
+  transform: translateY(100px);
+}
+.skill .skill__list > li:hover{
+  /* top: 0px; */
+  transform: translateY(0);
+  opacity: 1;
+  transition: 1s;
+
+}
+
+
+.skill .skill__list li:hover h3{
+  transform: rotate(0);
+  transition: 0.5s;
+}
+.skill .skill__list h4{
+  font-size: 18px;
+  font-weight: bold;
+  margin: 30px 0 20px;
+}
+
+/* 애니메이션 정의는 맨 마지막에 */
+@keyframes flash {
+  0%, 50%, 100% {
     opacity: 1;
   }
-  25%, 75%{
+
+  25%, 75% {
     opacity: 0;
   }
 }
+
