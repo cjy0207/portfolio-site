@@ -56,3 +56,44 @@ imageCloseBtn.forEach(function(btn){
   })
 })
 
+//ESC키 
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') imageModal.style.display = 'none'
+})
+
+//바깥화면
+imageModal.addEventListener('click', function(e){
+  //console.log(e.currentTarget) 실제 이벤트가 바인딩된 요소. this와 동일한 의미를 가짐(화살표가 아니라 일반 함수에서)
+  //if(e.target === imageModal) imageModal.style.display = 'none' //e.target : 현재 이벤트가 발생한 대상(실제로 클릭한 가장 안쪽 요소
+  e.stopPropagation // 이벤트 확산을 막는법 (버블링/캽쳐링)
+  if(e.target === e.currentTarget) imageModal.style.display = 'none'
+})
+
+//현재 연도 표시
+//날짜 정보를 가진 js의 date객체를 활용
+
+const currentDate = new Date().getFullYear()
+document.querySelector('.this-year').innerHTML = currentDate
+
+//scroll to top
+const toTopEl = document.querySelector('.toTop')
+const flash = document.querySelectorAll('.animate-flash')
+
+window.addEventListener('scroll', function(){
+  //console.log(this.window.scrollY)
+  if(this.window.scrollY < 500) {
+    toTopEl.style.transform = 'translateX(100px)'
+    toTopEl.style.opacity = '0'
+    flash.forEach(function(e){
+      e.classList.add('animate-flash');
+    })
+  }else if(this.window.scrollY >= 500){
+    toTopEl.style.transform = 'translateX(0)'
+    toTopEl.style.opacity = '1'
+    flash.forEach(function(e){
+      e.classList.remove('animate-flash');
+    })
+    
+  }
+
+})
